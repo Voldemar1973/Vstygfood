@@ -1,332 +1,865 @@
-export default function VstygFoodApp() { const offers = [ { id: 1, business: 'Мамина Пекарня', title: 'Капучино + круасан', category: 'Кава', price: '29 грн', oldPrice: '65 грн', rating: '4.9', timer: '27 хв', distance: '50 м', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop', google: 'https://google.com', phone: '+380671112233', telegram: '@mama_bakery', }, { id: 2, business: 'Tokyo Sushi', title: 'Філадельфія XL', category: 'Суші', price: '259 грн', oldPrice: '420 грн', rating: '4.8', timer: '1 год', distance: '300 м', image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop', google: 'https://google.com', phone: '+380671119999', telegram: '@tokyosushi', }, { id: 3, business: 'Burger Lab', title: 'Cheese Burger Combo', category: 'Бургери', price: '159 грн', oldPrice: '240 грн', rating: '4.7', timer: '42 хв', distance: '400 м', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop', google: 'https://google.com', phone: '+380673331122', telegram: '@burgerlab', }, ];
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-return ( <div className="min-h-screen bg-[#f5f5f3] pb-28 text-[#111827] font-sans"> {/* HEADER */} <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl"> <div className="max-w-7xl mx-auto px-4 py-4"> <div className="flex items-center justify-between"> <div> <h1 className="text-3xl font-black tracking-tight"> Vstyg <span className="text-green-600">Food</span> </h1> <p className="text-sm text-gray-500 mt-1"> Гарячі пропозиції поруч </p> </div>
+<title>Vstyg Food</title>
 
-<button className="bg-[#111827] text-white rounded-full px-5 py-3 text-sm font-bold">
-          🔥 Vstyg Club
-        </button>
-      </div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-      <div className="mt-4 bg-[#f3f4f6] rounded-2xl p-4 text-sm text-gray-400">
-        🔎 Пошук: кава, суші, піца...
-      </div>
-    </div>
-  </header>
+<style>
 
-  {/* HERO */}
-  <section className="max-w-7xl mx-auto px-4 mt-5">
-    <div className="rounded-[32px] bg-gradient-to-br from-[#111827] to-[#1f2937] text-white p-8">
-      <div className="inline-flex bg-white/10 rounded-full px-4 py-2 text-sm mb-5">
-        📍 Оновлення в реальному часі
-      </div>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
 
-      <h2 className="text-5xl font-black leading-none tracking-tight">
-        Лови гарячі
-        <br />
-        пропозиції
-      </h2>
+body{
+font-family:'Inter',sans-serif;
+background:#f5f5f3;
+color:#111827;
+padding-bottom:120px;
+}
 
-      <p className="mt-5 text-white/70 max-w-xl leading-7">
-        Кава, суші, бургери, випічка та інші локальні пропозиції
-        поруч із тобою.
-      </p>
+/* HEADER */
 
-      <button className="mt-6 bg-green-600 hover:bg-green-700 transition text-white rounded-2xl px-6 py-4 font-bold">
-        🔥 Переглянути пропозиції
-      </button>
-    </div>
-  </section>
+.header{
+background:white;
+padding:18px 18px 16px;
+position:sticky;
+top:0;
+z-index:100;
+border-bottom:1px solid #ececec;
+}
 
-  {/* CATEGORIES */}
-  <section className="max-w-7xl mx-auto px-4 mt-5 overflow-x-auto">
-    <div className="flex gap-3 min-w-max pb-2">
-      {['🔥 Гарячі', '☕ Кава', '🍕 Піца', '🍣 Суші', '🍔 Бургери', '🥐 Випічка', '🥗 Healthy'].map((item) => (
-        <button
-          key={item}
-          className="bg-white border border-gray-200 rounded-full px-5 py-3 text-sm font-bold hover:bg-[#111827] hover:text-white transition"
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-  </section>
+.logo-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-  {/* OFFERS */}
-  <section className="max-w-7xl mx-auto px-4 mt-8">
-    <div className="flex items-center justify-between mb-5">
-      <h3 className="text-3xl font-black tracking-tight">
-        Популярне поруч
-      </h3>
+.logo{
+font-size:32px;
+font-weight:900;
+letter-spacing:-1.5px;
+}
 
-      <button className="text-green-600 font-bold">Усі →</button>
-    </div>
+.logo span{
+color:#18a957;
+}
 
-    <div className="grid lg:grid-cols-3 gap-6">
-      {offers.map((offer) => (
-        <div
-          key={offer.id}
-          className="bg-white rounded-[30px] overflow-hidden shadow-lg"
-        >
-          <div
-            className="h-60 bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${offer.image})` }}
-          >
-            <div className="absolute top-4 left-4 right-4 flex justify-between">
-              <div className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold">
-                Гаряча пропозиція
-              </div>
+.club-btn{
+background:#111827;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:999px;
+font-size:13px;
+font-weight:700;
+}
 
-              <div className="bg-black/70 text-white px-4 py-2 rounded-full text-sm font-bold">
-                ⏳ {offer.timer}
-              </div>
-            </div>
-          </div>
+.location{
+margin-top:12px;
+font-size:14px;
+color:#6b7280;
+}
 
-          <div className="p-5">
-            <div className="flex justify-between items-start">
-              <div>
-                <h4 className="text-2xl font-black tracking-tight">
-                  {offer.business}
-                </h4>
-                <p className="text-sm text-gray-500 mt-1">
-                  📍 {offer.distance}
-                </p>
-              </div>
+.location strong{
+color:#111827;
+}
 
-              <div className="bg-gray-100 px-3 py-2 rounded-xl text-sm font-bold">
-                ⭐ {offer.rating}
-              </div>
-            </div>
+.search-box{
+margin-top:14px;
+background:#f1f3f5;
+padding:16px;
+border-radius:18px;
+font-size:15px;
+color:#9ca3af;
+}
 
-            <p className="mt-4 text-gray-600 leading-6">
-              {offer.title}
-            </p>
+/* CATEGORY */
 
-            <div className="mt-5 flex items-end justify-between">
-              <div>
-                <div className="text-gray-400 line-through text-sm">
-                  {offer.oldPrice}
-                </div>
-                <div className="text-3xl font-black tracking-tight">
-                  {offer.price}
-                </div>
-              </div>
+.categories{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:16px;
+scrollbar-width:none;
+}
 
-              <button className="bg-[#111827] text-white px-5 py-4 rounded-2xl font-bold hover:opacity-90">
-                Забронювати
-              </button>
-            </div>
+.categories::-webkit-scrollbar{
+display:none;
+}
 
-            {/* CONTACTS */}
-            <div className="mt-5 border-t pt-4 flex flex-col gap-3 text-sm">
-              <a
-                href={offer.google}
-                className="bg-gray-100 rounded-xl px-4 py-3 font-semibold"
-              >
-                ⭐ Google рейтинг
-              </a>
+.category{
+background:white;
+padding:12px 16px;
+border-radius:999px;
+white-space:nowrap;
+font-size:14px;
+font-weight:700;
+border:1px solid #ececec;
+}
 
-              <a
-                href={`tel:${offer.phone}`}
-                className="bg-gray-100 rounded-xl px-4 py-3 font-semibold"
-              >
-                📞 {offer.phone}
-              </a>
+.category.active{
+background:#111827;
+color:white;
+}
 
-              <a
-                href={`https://t.me/${offer.telegram.replace('@', '')}`}
-                className="bg-gray-100 rounded-xl px-4 py-3 font-semibold"
-              >
-                💬 {offer.telegram}
-              </a>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
+/* HERO */
 
-  {/* USER CABINET */}
-  <section className="max-w-7xl mx-auto px-4 mt-12">
-    <div className="bg-white rounded-[32px] p-8 shadow-lg">
-      <div className="flex items-center justify-between flex-wrap gap-5">
-        <div>
-          <div className="text-sm font-bold text-green-600">
-            КАБІНЕТ КОРИСТУВАЧА
-          </div>
+.hero{
+margin:0 16px 20px;
+background:linear-gradient(135deg,#111827,#1f2937);
+border-radius:32px;
+padding:26px;
+color:white;
+position:relative;
+overflow:hidden;
+}
 
-          <h3 className="text-3xl font-black tracking-tight mt-2">
-            Андрій
-          </h3>
+.hero::after{
+content:'';
+position:absolute;
+width:220px;
+height:220px;
+background:rgba(255,255,255,0.05);
+border-radius:50%;
+top:-80px;
+right:-80px;
+}
 
-          <p className="text-gray-500 mt-2">
-            Активна підписка Vstyg Club
-          </p>
-        </div>
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+background:rgba(255,255,255,0.1);
+padding:10px 14px;
+border-radius:999px;
+font-size:13px;
+margin-bottom:18px;
+position:relative;
+z-index:2;
+}
 
-        <button className="bg-green-600 text-white rounded-2xl px-6 py-4 font-bold">
-          🔥 Моя підписка
-        </button>
-      </div>
+.hero h1{
+font-size:38px;
+line-height:1;
+font-weight:900;
+letter-spacing:-2px;
+position:relative;
+z-index:2;
+}
 
-      <div className="grid md:grid-cols-3 gap-5 mt-8">
-        <div className="bg-[#f5f5f3] rounded-2xl p-5">
-          <div className="text-sm text-gray-500">Збережено</div>
-          <div className="text-4xl font-black mt-2">12</div>
-        </div>
+.hero p{
+margin-top:16px;
+font-size:15px;
+line-height:1.6;
+color:rgba(255,255,255,0.8);
+position:relative;
+z-index:2;
+}
 
-        <div className="bg-[#f5f5f3] rounded-2xl p-5">
-          <div className="text-sm text-gray-500">Бронювання</div>
-          <div className="text-4xl font-black mt-2">7</div>
-        </div>
+.hero button{
+margin-top:22px;
+width:100%;
+border:none;
+background:#18a957;
+color:white;
+padding:16px;
+border-radius:20px;
+font-size:16px;
+font-weight:800;
+position:relative;
+z-index:2;
+}
 
-        <div className="bg-[#f5f5f3] rounded-2xl p-5">
-          <div className="text-sm text-gray-500">Реферали</div>
-          <div className="text-4xl font-black mt-2">4</div>
-        </div>
-      </div>
-    </div>
-  </section>
+/* SECTION */
 
-  {/* BUSINESS CABINET */}
-  <section className="max-w-7xl mx-auto px-4 mt-12">
-    <div className="rounded-[32px] bg-[#111827] text-white p-8">
-      <div className="flex items-center justify-between flex-wrap gap-5">
-        <div>
-          <div className="text-sm font-bold text-green-500">
-            КАБІНЕТ БІЗНЕСУ
-          </div>
+.section{
+padding:0 16px;
+}
 
-          <h3 className="text-4xl font-black tracking-tight mt-2">
-            Burger Lab
-          </h3>
+.section-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
 
-          <p className="text-white/70 mt-3 max-w-xl leading-7">
-            Керуйте гарячими пропозиціями, додавайте фото,
-            відстежуйте бронювання та нових гостей.
-          </p>
-        </div>
+.section-title{
+font-size:28px;
+font-weight:900;
+letter-spacing:-1px;
+}
 
-        <button className="bg-green-600 rounded-2xl px-6 py-4 font-bold">
-          ➕ Додати пропозицію
-        </button>
-      </div>
+.section-link{
+color:#18a957;
+font-size:14px;
+font-weight:700;
+}
 
-      <div className="grid lg:grid-cols-4 gap-5 mt-8">
-        <div className="bg-white/10 rounded-2xl p-5">
-          <div className="text-sm text-white/60">Перегляди</div>
-          <div className="text-4xl font-black mt-2">1 248</div>
-        </div>
+/* OFFER */
 
-        <div className="bg-white/10 rounded-2xl p-5">
-          <div className="text-sm text-white/60">Бронювання</div>
-          <div className="text-4xl font-black mt-2">83</div>
-        </div>
+.offer-card{
+background:white;
+border-radius:30px;
+overflow:hidden;
+margin-bottom:20px;
+box-shadow:0 4px 20px rgba(0,0,0,0.06);
+}
 
-        <div className="bg-white/10 rounded-2xl p-5">
-          <div className="text-sm text-white/60">Рейтинг</div>
-          <div className="text-4xl font-black mt-2">4.8</div>
-        </div>
+.offer-image{
+height:220px;
+background-size:cover;
+background-position:center;
+position:relative;
+}
 
-        <div className="bg-white/10 rounded-2xl p-5">
-          <div className="text-sm text-white/60">Активні офери</div>
-          <div className="text-4xl font-black mt-2">6</div>
-        </div>
-      </div>
+.offer-top{
+position:absolute;
+top:14px;
+left:14px;
+right:14px;
+display:flex;
+justify-content:space-between;
+}
 
-      {/* ADD OFFER FORM */}
-      <div className="mt-8 bg-white text-[#111827] rounded-[28px] p-6">
-        <h4 className="text-2xl font-black tracking-tight mb-5">
-          Додати гарячу пропозицію
-        </h4>
+.badge{
+background:#18a957;
+color:white;
+padding:8px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:800;
+}
 
-        <div className="grid md:grid-cols-2 gap-5">
-          <input
-            placeholder="Назва пропозиції"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.timer{
+background:rgba(17,24,39,0.85);
+backdrop-filter:blur(8px);
+color:white;
+padding:8px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:700;
+}
 
-          <input
-            placeholder="Категорія"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.favorite{
+position:absolute;
+bottom:14px;
+right:14px;
+width:46px;
+height:46px;
+border:none;
+border-radius:50%;
+background:white;
+font-size:20px;
+}
 
-          <input
-            placeholder="Стара ціна"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.offer-content{
+padding:20px;
+}
 
-          <input
-            placeholder="Нова ціна"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.business-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-          <input
-            placeholder="Таймер (30 хв)"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.business-name{
+font-size:20px;
+font-weight:900;
+}
 
-          <input
-            placeholder="Посилання на Google рейтинг"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.distance{
+font-size:13px;
+color:#6b7280;
+}
 
-          <input
-            placeholder="Телефон"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
+.offer-title{
+margin-top:8px;
+font-size:15px;
+color:#4b5563;
+line-height:1.5;
+}
 
-          <input
-            placeholder="Telegram"
-            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
-          />
-        </div>
+.stats{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:16px;
+}
 
-        <div className="mt-5 border-2 border-dashed border-gray-300 rounded-2xl p-10 text-center text-gray-400">
-          📸 Завантажити фото
-        </div>
+.stat{
+background:#f3f4f6;
+padding:10px 12px;
+border-radius:14px;
+font-size:13px;
+font-weight:700;
+}
 
-        <button className="mt-5 bg-[#111827] text-white rounded-2xl px-6 py-4 font-bold">
-          🚀 Опублікувати
-        </button>
-      </div>
-    </div>
-  </section>
+.price-row{
+margin-top:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-  {/* REFERRAL */}
-  <section className="max-w-7xl mx-auto px-4 mt-12">
-    <div className="bg-white rounded-[32px] p-8 flex items-center justify-between flex-wrap gap-5 shadow-lg">
-      <div>
-        <div className="text-5xl font-black tracking-tight">30%</div>
-        <p className="text-gray-500 mt-2">
-          від першої покупки друга або бізнесу
-        </p>
-      </div>
+.price{
+display:flex;
+align-items:center;
+gap:10px;
+}
 
-      <button className="bg-[#111827] text-white rounded-2xl px-6 py-4 font-bold">
-        📤 Поділитися
-      </button>
-    </div>
-  </section>
+.old-price{
+font-size:15px;
+color:#9ca3af;
+text-decoration:line-through;
+}
 
-  {/* BOTTOM NAV */}
-  <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 flex justify-around py-4 z-50">
-    {[
-      ['🏠', 'Головна'],
-      ['🔥', 'Hot'],
-      ['❤️', 'Збережені'],
-      ['🎫', 'Club'],
-      ['👤', 'Профіль'],
-    ].map(([icon, label]) => (
-      <button
-        key={label}
-        className="flex flex-col items-center text-xs font-bold text-gray-500"
-      >
-        <span className="text-2xl mb-1">{icon}</span>
-        {label}
-      </button>
-    ))}
-  </nav>
+.new-price{
+font-size:32px;
+font-weight:900;
+letter-spacing:-1px;
+}
+
+.reserve-btn{
+background:#111827;
+color:white;
+border:none;
+padding:14px 18px;
+border-radius:18px;
+font-size:14px;
+font-weight:800;
+}
+
+/* CONTACT */
+
+.contact-row{
+display:flex;
+gap:10px;
+margin-top:16px;
+flex-wrap:wrap;
+}
+
+.contact-btn{
+flex:1;
+min-width:120px;
+background:#f9fafb;
+border:1px solid #ececec;
+padding:14px;
+border-radius:16px;
+font-size:13px;
+font-weight:700;
+text-align:center;
+}
+
+/* BUSINESS */
+
+.business-box{
+background:white;
+margin:20px 16px;
+padding:22px;
+border-radius:30px;
+}
+
+.business-title{
+font-size:24px;
+font-weight:900;
+letter-spacing:-1px;
+}
+
+.business-text{
+margin-top:10px;
+font-size:14px;
+line-height:1.6;
+color:#6b7280;
+}
+
+.business-price{
+margin-top:18px;
+font-size:36px;
+font-weight:900;
+}
+
+.business-price span{
+font-size:15px;
+font-weight:500;
+color:#6b7280;
+}
+
+.business-btn{
+margin-top:18px;
+width:100%;
+border:none;
+background:#111827;
+color:white;
+padding:16px;
+border-radius:18px;
+font-size:15px;
+font-weight:800;
+}
+
+/* REFERRAL */
+
+.referral{
+margin:20px 16px;
+background:linear-gradient(135deg,#111827,#1f2937);
+border-radius:30px;
+padding:22px;
+color:white;
+}
+
+.referral-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.ref-percent{
+background:#18a957;
+padding:10px 16px;
+border-radius:999px;
+font-size:22px;
+font-weight:900;
+}
+
+.ref-title{
+font-size:18px;
+font-weight:800;
+margin-top:18px;
+}
+
+.ref-text{
+margin-top:8px;
+font-size:14px;
+line-height:1.6;
+color:rgba(255,255,255,0.7);
+}
+
+.ref-btn{
+margin-top:18px;
+width:100%;
+border:none;
+background:white;
+color:#111827;
+padding:16px;
+border-radius:18px;
+font-size:15px;
+font-weight:800;
+}
+
+/* USER CABINET */
+
+.user-box{
+background:white;
+margin:20px 16px;
+padding:22px;
+border-radius:30px;
+}
+
+.user-name{
+font-size:24px;
+font-weight:900;
+}
+
+.user-status{
+margin-top:8px;
+font-size:14px;
+color:#18a957;
+font-weight:700;
+}
+
+.user-stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:20px;
+}
+
+.user-stat{
+background:#f9fafb;
+padding:18px;
+border-radius:20px;
+}
+
+.user-stat-number{
+font-size:24px;
+font-weight:900;
+}
+
+.user-stat-label{
+margin-top:4px;
+font-size:13px;
+color:#6b7280;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:rgba(255,255,255,0.95);
+backdrop-filter:blur(20px);
+border-top:1px solid #ececec;
+display:flex;
+justify-content:space-around;
+padding:12px 0 26px;
+z-index:999;
+}
+
+.nav-item{
+text-align:center;
+font-size:11px;
+font-weight:700;
+color:#9ca3af;
+}
+
+.nav-item.active{
+color:#111827;
+}
+
+.nav-icon{
+font-size:24px;
+margin-bottom:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo-row">
+<div class="logo">Vstyg <span>Food</span></div>
+<button class="club-btn">🔥 Vstyg Club</button>
 </div>
 
-); }
+<div class="location">
+📍 Поруч із тобою • <strong>500 м</strong>
+</div>
+
+<div class="search-box">
+🔎 Пошук: кава, суші, піца...
+</div>
+
+</div>
+
+<div class="categories">
+<div class="category active">🔥 Гарячі</div>
+<div class="category">☕ Кава</div>
+<div class="category">🍕 Піца</div>
+<div class="category">🍣 Суші</div>
+<div class="category">🍔 Бургери</div>
+<div class="category">🥐 Випічка</div>
+<div class="category">🥗 Healthy</div>
+</div>
+
+<div class="hero">
+
+<div class="hero-badge">
+📍 Оновлення в реальному часі
+</div>
+
+<h1>
+Лови гарячі<br>
+пропозиції
+</h1>
+
+<p>
+Кава, суші, бургери, випічка та інші локальні пропозиції поруч із тобою.
+</p>
+
+<button>
+🔥 Переглянути пропозиції
+</button>
+
+</div>
+
+<div class="section">
+
+<div class="section-header">
+<div class="section-title">Популярне поруч</div>
+<div class="section-link">Усі →</div>
+</div>
+
+<!-- OFFER 1 -->
+
+<div class="offer-card">
+
+<div class="offer-image" style="background-image:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop');">
+
+<div class="offer-top">
+<div class="badge">Гаряча пропозиція</div>
+<div class="timer">⏳ 27 хв</div>
+</div>
+
+<button class="favorite">🤍</button>
+
+</div>
+
+<div class="offer-content">
+
+<div class="business-row">
+<div class="business-name">Мамина Пекарня</div>
+<div class="distance">📍 50 м</div>
+</div>
+
+<div class="offer-title">
+Капучино + круасан
+</div>
+
+<div class="stats">
+<div class="stat">⭐ 4.9</div>
+<div class="stat">👀 120 переглядів</div>
+<div class="stat">⚡ Самовивіз</div>
+</div>
+
+<div class="price-row">
+<div class="price">
+<div class="old-price">65 грн</div>
+<div class="new-price">29 грн</div>
+</div>
+
+<button class="reserve-btn">
+Забронювати
+</button>
+</div>
+
+<div class="contact-row">
+<div class="contact-btn">⭐ Google</div>
+<div class="contact-btn">📞 Подзвонити</div>
+<div class="contact-btn">💬 Telegram</div>
+</div>
+
+</div>
+</div>
+
+<!-- OFFER 2 -->
+
+<div class="offer-card">
+
+<div class="offer-image" style="background-image:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop');">
+
+<div class="offer-top">
+<div class="badge">Гаряча пропозиція</div>
+<div class="timer">⏳ 1 год</div>
+</div>
+
+<button class="favorite">❤️</button>
+
+</div>
+
+<div class="offer-content">
+
+<div class="business-row">
+<div class="business-name">Pizza Point</div>
+<div class="distance">📍 120 м</div>
+</div>
+
+<div class="offer-title">
+Піца Маргарита 30 см
+</div>
+
+<div class="stats">
+<div class="stat">⭐ 4.8</div>
+<div class="stat">👀 230 переглядів</div>
+<div class="stat">⚡ 15 хв pickup</div>
+</div>
+
+<div class="price-row">
+<div class="price">
+<div class="old-price">180 грн</div>
+<div class="new-price">90 грн</div>
+</div>
+
+<button class="reserve-btn">
+Забронювати
+</button>
+</div>
+
+<div class="contact-row">
+<div class="contact-btn">⭐ Google</div>
+<div class="contact-btn">📞 Подзвонити</div>
+<div class="contact-btn">💬 Telegram</div>
+</div>
+
+</div>
+</div>
+
+<!-- OFFER 3 -->
+
+<div class="offer-card">
+
+<div class="offer-image" style="background-image:url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1200&auto=format&fit=crop');">
+
+<div class="offer-top">
+<div class="badge">Гаряча пропозиція</div>
+<div class="timer">⏳ 42 хв</div>
+</div>
+
+<button class="favorite">🤍</button>
+
+</div>
+
+<div class="offer-content">
+
+<div class="business-row">
+<div class="business-name">Sushi Go</div>
+<div class="distance">📍 400 м</div>
+</div>
+
+<div class="offer-title">
+Сет Філадельфія
+</div>
+
+<div class="stats">
+<div class="stat">⭐ 4.7</div>
+<div class="stat">👀 340 переглядів</div>
+<div class="stat">🚀 Хіт</div>
+</div>
+
+<div class="price-row">
+<div class="price">
+<div class="old-price">560 грн</div>
+<div class="new-price">299 грн</div>
+</div>
+
+<button class="reserve-btn">
+Забронювати
+</button>
+</div>
+
+<div class="contact-row">
+<div class="contact-btn">⭐ Google</div>
+<div class="contact-btn">📞 Подзвонити</div>
+<div class="contact-btn">💬 Telegram</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<!-- BUSINESS -->
+
+<div class="business-box">
+
+<div class="business-title">
+🏢 Для бізнесу
+</div>
+
+<div class="business-text">
+Додавайте гарячі пропозиції, отримуйте нових гостей та заповнюйте вільні години.
+</div>
+
+<div class="business-price">
+499 грн <span>/ місяць</span>
+</div>
+
+<button class="business-btn">
+📢 Підключити заклад
+</button>
+
+</div>
+
+<!-- REFERRAL -->
+
+<div class="referral">
+
+<div class="referral-top">
+<div class="ref-percent">30%</div>
+</div>
+
+<div class="ref-title">
+Запрошуй друзів
+</div>
+
+<div class="ref-text">
+Отримуй 30% від першої покупки друга або бізнесу.
+</div>
+
+<button class="ref-btn">
+📤 Поділитися посиланням
+</button>
+
+</div>
+
+<!-- USER -->
+
+<div class="user-box">
+
+<div class="user-name">
+Андрій 👋
+</div>
+
+<div class="user-status">
+🔥 Активна підписка Vstyg Club
+</div>
+
+<div class="user-stats">
+
+<div class="user-stat">
+<div class="user-stat-number">12</div>
+<div class="user-stat-label">Збережено</div>
+</div>
+
+<div class="user-stat">
+<div class="user-stat-number">7</div>
+<div class="user-stat-label">Бронювань</div>
+</div>
+
+<div class="user-stat">
+<div class="user-stat-number">4</div>
+<div class="user-stat-label">Рефералів</div>
+</div>
+
+<div class="user-stat">
+<div class="user-stat-number">29₴</div>
+<div class="user-stat-label">Кешбек</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+<div class="nav-item active">
+<div class="nav-icon">🏠</div>
+Головна
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">🔥</div>
+Hot
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">❤️</div>
+Збережені
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">🎫</div>
+Club
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">👤</div>
+Профіль
+</div>
+
+</div>
+
+</body>
+          </html>
