@@ -1,108 +1,332 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vstyg Food</title>
-    <style>
-        :root { --primary: #18a957; --dark: #111827; --gray: #6b7280; --light-bg: #f8f8f6; }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--light-bg); padding-bottom: 80px; }
+export default function VstygFoodApp() { const offers = [ { id: 1, business: 'Мамина Пекарня', title: 'Капучино + круасан', category: 'Кава', price: '29 грн', oldPrice: '65 грн', rating: '4.9', timer: '27 хв', distance: '50 м', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop', google: 'https://google.com', phone: '+380671112233', telegram: '@mama_bakery', }, { id: 2, business: 'Tokyo Sushi', title: 'Філадельфія XL', category: 'Суші', price: '259 грн', oldPrice: '420 грн', rating: '4.8', timer: '1 год', distance: '300 м', image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop', google: 'https://google.com', phone: '+380671119999', telegram: '@tokyosushi', }, { id: 3, business: 'Burger Lab', title: 'Cheese Burger Combo', category: 'Бургери', price: '159 грн', oldPrice: '240 грн', rating: '4.7', timer: '42 хв', distance: '400 м', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop', google: 'https://google.com', phone: '+380673331122', telegram: '@burgerlab', }, ];
 
-        /* ВІДНОВЛЕНИЙ ЛОГОТИП ТА СЛОГАН */
-        .header { background: #fff; padding: 15px; border-bottom: 1px solid #eee; position: sticky; top:0; z-index: 100; }
-        .logo { font-size: 24px; font-weight: 900; color: var(--dark); /* Vstyg чорний */ }
-        .logo span { color: var(--primary); /* food зелений */ }
-        .slogan { font-size: 14px; font-weight: 700; color: var(--gray); margin-top: 5px; /* Гарячі пропозиції поруч */ }
-        
-        .search-bar { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: #f9f9f9; margin-top: 10px; }
+return ( <div className="min-h-screen bg-[#f5f5f3] pb-28 text-[#111827] font-sans"> {/* HEADER */} <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl"> <div className="max-w-7xl mx-auto px-4 py-4"> <div className="flex items-center justify-between"> <div> <h1 className="text-3xl font-black tracking-tight"> Vstyg <span className="text-green-600">Food</span> </h1> <p className="text-sm text-gray-500 mt-1"> Гарячі пропозиції поруч </p> </div>
 
-        /* Скрол категорій */
-        .categories { display: flex; overflow-x: auto; padding: 10px 15px; gap: 10px; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-        .categories::-webkit-scrollbar { display: none; } /* Сховати скрол-бар */
-        .cat-item { background: #fff; padding: 10px 18px; border-radius: 25px; border: 1px solid #ddd; font-size: 14px; font-weight: 700; color: var(--dark); cursor: pointer; display: flex; align-items: center; gap: 5px; }
+<button className="bg-[#111827] text-white rounded-full px-5 py-3 text-sm font-bold">
+          🔥 Vstyg Club
+        </button>
+      </div>
 
-        .main-content { padding: 15px; }
-        .screen { display: none; }
-        .screen.active { display: block; }
+      <div className="mt-4 bg-[#f3f4f6] rounded-2xl p-4 text-sm text-gray-400">
+        🔎 Пошук: кава, суші, піца...
+      </div>
+    </div>
+  </header>
 
-        .card { background: white; border-radius: 20px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        .img-block { width: 100%; height: 200px; background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600') center/cover; }
-        .content { padding: 15px; }
-        .card-title { font-weight: 900; font-size: 20px; color: var(--dark); margin-bottom: 15px; }
+  {/* HERO */}
+  <section className="max-w-7xl mx-auto px-4 mt-5">
+    <div className="rounded-[32px] bg-gradient-to-br from-[#111827] to-[#1f2937] text-white p-8">
+      <div className="inline-flex bg-white/10 rounded-full px-4 py-2 text-sm mb-5">
+        📍 Оновлення в реальному часі
+      </div>
 
-        /* Кнопка */
-        .btn-main { display: block; width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; text-decoration: none; text-align: center; }
+      <h2 className="text-5xl font-black leading-none tracking-tight">
+        Лови гарячі
+        <br />
+        пропозиції
+      </h2>
 
-        /* Блок мапи */
-        .map-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-top: 20px; }
-        .map-placeholder { width: 100%; height: 180px; background: #eee; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--gray); font-weight: 700; border: 2px dashed #ddd; }
+      <p className="mt-5 text-white/70 max-w-xl leading-7">
+        Кава, суші, бургери, випічка та інші локальні пропозиції
+        поруч із тобою.
+      </p>
 
-        /* Навігація */
-        .nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 200; }
-        .nav-item { text-align: center; font-size: 11px; font-weight: 700; color: var(--gray); cursor: pointer; flex: 1; }
-        .nav-item.active { color: var(--primary); }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="logo">Vstyg <span>Food</span></div>
-        <div class="slogan">Гарячі пропозиції поруч</div>
-        <input type="text" class="search-bar" placeholder="🔍 Пошук страв...">
+      <button className="mt-6 bg-green-600 hover:bg-green-700 transition text-white rounded-2xl px-6 py-4 font-bold">
+        🔥 Переглянути пропозиції
+      </button>
+    </div>
+  </section>
+
+  {/* CATEGORIES */}
+  <section className="max-w-7xl mx-auto px-4 mt-5 overflow-x-auto">
+    <div className="flex gap-3 min-w-max pb-2">
+      {['🔥 Гарячі', '☕ Кава', '🍕 Піца', '🍣 Суші', '🍔 Бургери', '🥐 Випічка', '🥗 Healthy'].map((item) => (
+        <button
+          key={item}
+          className="bg-white border border-gray-200 rounded-full px-5 py-3 text-sm font-bold hover:bg-[#111827] hover:text-white transition"
+        >
+          {item}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  {/* OFFERS */}
+  <section className="max-w-7xl mx-auto px-4 mt-8">
+    <div className="flex items-center justify-between mb-5">
+      <h3 className="text-3xl font-black tracking-tight">
+        Популярне поруч
+      </h3>
+
+      <button className="text-green-600 font-bold">Усі →</button>
     </div>
 
-    <div class="categories">
-        <div class="cat-item">🍕 Піца</div>
-        <div class="cat-item">🍣 Суші</div>
-        <div class="cat-item">🍔 Бургери</div>
-        <div class="cat-item">🥗 Салати</div>
-        <div class="cat-item">☕ Кава</div>
-        <div class="cat-item">🍖 М'ясо</div>
-    </div>
+    <div className="grid lg:grid-cols-3 gap-6">
+      {offers.map((offer) => (
+        <div
+          key={offer.id}
+          className="bg-white rounded-[30px] overflow-hidden shadow-lg"
+        >
+          <div
+            className="h-60 bg-cover bg-center relative"
+            style={{ backgroundImage: `url(${offer.image})` }}
+          >
+            <div className="absolute top-4 left-4 right-4 flex justify-between">
+              <div className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+                Гаряча пропозиція
+              </div>
 
-    <div class="main-content">
-        <div id="screen-home" class="screen active">
-            <div class="card">
-                <div class="img-block"></div>
-                <div class="content">
-                    <div class="card-title">First Point</div>
-                    <a href="#" class="btn-main">ЗАМОВИТИ ЗА 95 ГРН</a>
+              <div className="bg-black/70 text-white px-4 py-2 rounded-full text-sm font-bold">
+                ⏳ {offer.timer}
+              </div>
+            </div>
+          </div>
+
+          <div className="p-5">
+            <div className="flex justify-between items-start">
+              <div>
+                <h4 className="text-2xl font-black tracking-tight">
+                  {offer.business}
+                </h4>
+                <p className="text-sm text-gray-500 mt-1">
+                  📍 {offer.distance}
+                </p>
+              </div>
+
+              <div className="bg-gray-100 px-3 py-2 rounded-xl text-sm font-bold">
+                ⭐ {offer.rating}
+              </div>
+            </div>
+
+            <p className="mt-4 text-gray-600 leading-6">
+              {offer.title}
+            </p>
+
+            <div className="mt-5 flex items-end justify-between">
+              <div>
+                <div className="text-gray-400 line-through text-sm">
+                  {offer.oldPrice}
                 </div>
+                <div className="text-3xl font-black tracking-tight">
+                  {offer.price}
+                </div>
+              </div>
+
+              <button className="bg-[#111827] text-white px-5 py-4 rounded-2xl font-bold hover:opacity-90">
+                Забронювати
+              </button>
             </div>
-            
-            <div class="map-card">
-                <h3 style="margin: 0 0 15px 0; color: var(--dark);">Де нас знайти</h3>
-                <div class="map-placeholder">Карта (Google Maps)</div>
+
+            {/* CONTACTS */}
+            <div className="mt-5 border-t pt-4 flex flex-col gap-3 text-sm">
+              <a
+                href={offer.google}
+                className="bg-gray-100 rounded-xl px-4 py-3 font-semibold"
+              >
+                ⭐ Google рейтинг
+              </a>
+
+              <a
+                href={`tel:${offer.phone}`}
+                className="bg-gray-100 rounded-xl px-4 py-3 font-semibold"
+              >
+                📞 {offer.phone}
+              </a>
+
+              <a
+                href={`https://t.me/${offer.telegram.replace('@', '')}`}
+                className="bg-gray-100 rounded-xl px-4 py-3 font-semibold"
+              >
+                💬 {offer.telegram}
+              </a>
             </div>
+          </div>
         </div>
-        
-        <div id="screen-biz" class="screen"><div class="card" style="padding:20px;"><h2>Бізнес</h2></div></div>
-        <div id="screen-fav" class="screen"><div class="card" style="padding:20px;"><h2>Улюблені</h2></div></div>
-        <div id="screen-user" class="screen"><div class="card" style="padding:20px;"><h2>Кабінет</h2></div></div>
+      ))}
     </div>
+  </section>
 
-    <div class="nav">
-        <div class="nav-item active" onclick="showScreen('home', this)">🏠<br>Головна</div>
-        <div class="nav-item" onclick="showScreen('biz', this)">🏬<br>Бізнес</div>
-        <div class="nav-item" onclick="showScreen('fav', this)">❤️<br>Улюблені</div>
-        <div class="nav-item" onclick="showScreen('user', this)">👤<br>Кабінет</div>
+  {/* USER CABINET */}
+  <section className="max-w-7xl mx-auto px-4 mt-12">
+    <div className="bg-white rounded-[32px] p-8 shadow-lg">
+      <div className="flex items-center justify-between flex-wrap gap-5">
+        <div>
+          <div className="text-sm font-bold text-green-600">
+            КАБІНЕТ КОРИСТУВАЧА
+          </div>
+
+          <h3 className="text-3xl font-black tracking-tight mt-2">
+            Андрій
+          </h3>
+
+          <p className="text-gray-500 mt-2">
+            Активна підписка Vstyg Club
+          </p>
+        </div>
+
+        <button className="bg-green-600 text-white rounded-2xl px-6 py-4 font-bold">
+          🔥 Моя підписка
+        </button>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-5 mt-8">
+        <div className="bg-[#f5f5f3] rounded-2xl p-5">
+          <div className="text-sm text-gray-500">Збережено</div>
+          <div className="text-4xl font-black mt-2">12</div>
+        </div>
+
+        <div className="bg-[#f5f5f3] rounded-2xl p-5">
+          <div className="text-sm text-gray-500">Бронювання</div>
+          <div className="text-4xl font-black mt-2">7</div>
+        </div>
+
+        <div className="bg-[#f5f5f3] rounded-2xl p-5">
+          <div className="text-sm text-gray-500">Реферали</div>
+          <div className="text-4xl font-black mt-2">4</div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <script>
-        function showScreen(id, el) {
-            // Сховати всі екрани
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            // Деактивувати всі кнопки навігації
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            // Показати потрібний екран
-            document.getElementById('screen-' + id).classList.add('active');
-            // Активувати кнопку навігації
-            el.classList.add('active');
-            
-            // Скрол вгору при перемиканні
-            window.scrollTo(0, 0);
-        }
-    </script>
-</body>
-</html>
+  {/* BUSINESS CABINET */}
+  <section className="max-w-7xl mx-auto px-4 mt-12">
+    <div className="rounded-[32px] bg-[#111827] text-white p-8">
+      <div className="flex items-center justify-between flex-wrap gap-5">
+        <div>
+          <div className="text-sm font-bold text-green-500">
+            КАБІНЕТ БІЗНЕСУ
+          </div>
+
+          <h3 className="text-4xl font-black tracking-tight mt-2">
+            Burger Lab
+          </h3>
+
+          <p className="text-white/70 mt-3 max-w-xl leading-7">
+            Керуйте гарячими пропозиціями, додавайте фото,
+            відстежуйте бронювання та нових гостей.
+          </p>
+        </div>
+
+        <button className="bg-green-600 rounded-2xl px-6 py-4 font-bold">
+          ➕ Додати пропозицію
+        </button>
+      </div>
+
+      <div className="grid lg:grid-cols-4 gap-5 mt-8">
+        <div className="bg-white/10 rounded-2xl p-5">
+          <div className="text-sm text-white/60">Перегляди</div>
+          <div className="text-4xl font-black mt-2">1 248</div>
+        </div>
+
+        <div className="bg-white/10 rounded-2xl p-5">
+          <div className="text-sm text-white/60">Бронювання</div>
+          <div className="text-4xl font-black mt-2">83</div>
+        </div>
+
+        <div className="bg-white/10 rounded-2xl p-5">
+          <div className="text-sm text-white/60">Рейтинг</div>
+          <div className="text-4xl font-black mt-2">4.8</div>
+        </div>
+
+        <div className="bg-white/10 rounded-2xl p-5">
+          <div className="text-sm text-white/60">Активні офери</div>
+          <div className="text-4xl font-black mt-2">6</div>
+        </div>
+      </div>
+
+      {/* ADD OFFER FORM */}
+      <div className="mt-8 bg-white text-[#111827] rounded-[28px] p-6">
+        <h4 className="text-2xl font-black tracking-tight mb-5">
+          Додати гарячу пропозицію
+        </h4>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          <input
+            placeholder="Назва пропозиції"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Категорія"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Стара ціна"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Нова ціна"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Таймер (30 хв)"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Посилання на Google рейтинг"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Телефон"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+
+          <input
+            placeholder="Telegram"
+            className="bg-[#f3f4f6] rounded-2xl p-4 outline-none"
+          />
+        </div>
+
+        <div className="mt-5 border-2 border-dashed border-gray-300 rounded-2xl p-10 text-center text-gray-400">
+          📸 Завантажити фото
+        </div>
+
+        <button className="mt-5 bg-[#111827] text-white rounded-2xl px-6 py-4 font-bold">
+          🚀 Опублікувати
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {/* REFERRAL */}
+  <section className="max-w-7xl mx-auto px-4 mt-12">
+    <div className="bg-white rounded-[32px] p-8 flex items-center justify-between flex-wrap gap-5 shadow-lg">
+      <div>
+        <div className="text-5xl font-black tracking-tight">30%</div>
+        <p className="text-gray-500 mt-2">
+          від першої покупки друга або бізнесу
+        </p>
+      </div>
+
+      <button className="bg-[#111827] text-white rounded-2xl px-6 py-4 font-bold">
+        📤 Поділитися
+      </button>
+    </div>
+  </section>
+
+  {/* BOTTOM NAV */}
+  <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 flex justify-around py-4 z-50">
+    {[
+      ['🏠', 'Головна'],
+      ['🔥', 'Hot'],
+      ['❤️', 'Збережені'],
+      ['🎫', 'Club'],
+      ['👤', 'Профіль'],
+    ].map(([icon, label]) => (
+      <button
+        key={label}
+        className="flex flex-col items-center text-xs font-bold text-gray-500"
+      >
+        <span className="text-2xl mb-1">{icon}</span>
+        {label}
+      </button>
+    ))}
+  </nav>
+</div>
+
+); }
