@@ -5,38 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vstyg Food</title>
     <style>
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f4f4; padding-bottom: 80px; }
-        .header { background: #fff; padding: 20px; border-bottom: 1px solid #ddd; }
-        .search-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-top: 10px; font-size: 16px; box-sizing: border-box; }
-        .card { background: #fff; margin: 15px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f4f4; padding-bottom: 80px; }
+        .header { background: #fff; padding: 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        .search-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; }
+        .main-content { padding: 15px; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
         .img-block { width: 100%; height: 200px; background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600') center/cover; }
         .content { padding: 15px; }
-        .btn { display: block; width: 100%; padding: 15px; background: #18a957; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
-        .nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; }
-        .nav-item { text-align: center; font-size: 11px; font-weight: 700; color: #6b7280; }
+        .btn { display: block; width: 100%; padding: 15px; background: #18a957; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; text-align: center; text-decoration: none; }
+        .nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 200; }
+        .nav-item { text-align: center; font-size: 11px; font-weight: 700; color: #6b7280; cursor: pointer; }
         .nav-item.active { color: #18a957; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1 style="margin:0; font-size: 24px;">Vstyg Food</h1>
-        <input type="text" class="search-input" placeholder="🔍 Пошук...">
+        <h1 style="margin:0 0 10px 0; font-size: 24px;">Vstyg Food</h1>
+        <input type="text" class="search-input" placeholder="🔍 Пошук страв...">
     </div>
     
-    <div class="card">
-        <div class="img-block"></div>
-        <div class="content">
-            <h2 style="margin: 0 0 5px 0;">First Point</h2>
-            <p style="margin: 0 0 15px 0; color: #555;">Смачна пропозиція дня — встигни замовити!</p>
-            <a href="https://t.me/your_bot_link" class="btn">ЗАМОВИТИ ЗА 95 ГРН</a>
+    <div class="main-content">
+        <div id="screen-home" class="screen active">
+            <div class="card">
+                <div class="img-block"></div>
+                <div class="content">
+                    <h2 style="margin: 0 0 5px 0;">First Point</h2>
+                    <p style="margin: 0 0 15px 0; color: #555;">Смачна пропозиція дня — встигни замовити!</p>
+                    <a href="#" class="btn">ЗАМОВИТИ ЗА 95 ГРН</a>
+                </div>
+            </div>
         </div>
+        <div id="screen-biz" class="screen"><div class="card" style="padding:20px;"><h2>Бізнес</h2><p>Розділ для партнерів.</p></div></div>
+        <div id="screen-fav" class="screen"><div class="card" style="padding:20px;"><h2>Улюблені</h2><p>Ваші обрані страви.</p></div></div>
+        <div id="screen-user" class="screen"><div class="card" style="padding:20px;"><h2>Кабінет</h2><p>Налаштування профілю.</p></div></div>
     </div>
 
     <div class="nav">
-        <div class="nav-item active">🏠<br>Головна</div>
-        <div class="nav-item">🏬<br>Бізнес</div>
-        <div class="nav-item">❤️<br>Улюблені</div>
-        <div class="nav-item">👤<br>Кабінет</div>
+        <div class="nav-item active" onclick="show('home', this)">🏠<br>Головна</div>
+        <div class="nav-item" onclick="show('biz', this)">🏬<br>Бізнес</div>
+        <div class="nav-item" onclick="show('fav', this)">❤️<br>Улюблені</div>
+        <div class="nav-item" onclick="show('user', this)">👤<br>Кабінет</div>
     </div>
+
+    <script>
+        function show(id, el) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('screen-' + id).classList.add('active');
+            el.classList.add('active');
+        }
+    </script>
 </body>
 </html>
