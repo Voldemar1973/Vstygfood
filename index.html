@@ -5,57 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vstyg Food</title>
     <style>
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f4f4; display: flex; flex-direction: column; height: 100vh; }
-        .header { background: #fff; padding: 15px; border-bottom: 1px solid #ddd; flex-shrink: 0; }
-        .search-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; margin-top: 10px; box-sizing: border-box; }
-        .main-content { flex-grow: 1; overflow-y: auto; padding: 15px; padding-bottom: 80px; }
-        .screen { display: none; }
-        .screen.active { display: block; }
-        .card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
-        .img-block { width: 100%; height: 200px; background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600') center/cover; }
-        .content { padding: 15px; }
-        .btn { display: block; width: 100%; padding: 15px; background: #18a957; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; text-align: center; text-decoration: none; }
-        .nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-item { text-align: center; font-size: 11px; font-weight: 700; color: #6b7280; cursor: pointer; flex: 1; }
+        body { margin: 0; font-family: sans-serif; background: #f8f8f6; padding-bottom: 70px; }
+        .header { background: #fff; padding: 15px; border-bottom: 1px solid #eee; }
+        .slogan { font-size: 13px; color: #18a957; font-weight: bold; margin-bottom: 10px; }
+        .search-bar { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ddd; }
+        /* Горизонтальний скрол категорій */
+        .categories { display: flex; overflow-x: auto; padding: 10px; gap: 10px; white-space: nowrap; }
+        .cat-item { background: #fff; padding: 8px 15px; border-radius: 20px; border: 1px solid #ddd; font-size: 14px; }
+        .main-content { padding: 15px; }
+        .card { background: #fff; border-radius: 20px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .map-placeholder { width: 100%; height: 150px; background: #eee; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #888; }
+        .nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .nav-item { text-align: center; font-size: 10px; color: #6b7280; font-weight: bold; }
         .nav-item.active { color: #18a957; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1 style="margin:0; font-size: 24px;">Vstyg Food</h1>
-        <input type="text" class="search-input" placeholder="🔍 Пошук страв...">
+        <h1 style="margin:0;">Vstyg Food</h1>
+        <div class="slogan">Найкращі страви поруч з вами</div>
+        <input type="text" class="search-bar" placeholder="🔍 Пошук страв...">
     </div>
-    
+
+    <div class="categories">
+        <div class="cat-item">🍕 Піца</div>
+        <div class="cat-item">🍣 Суші</div>
+        <div class="cat-item">🍔 Бургери</div>
+        <div class="cat-item">🥗 Салати</div>
+        <div class="cat-item">☕ Кава</div>
+    </div>
+
     <div class="main-content">
-        <div id="screen-home" class="screen active">
-            <div class="card">
-                <div class="img-block"></div>
-                <div class="content">
-                    <h2 style="margin: 0 0 5px 0;">First Point</h2>
-                    <p style="margin: 0 0 15px 0; color: #555;">Смачна пропозиція дня — встигни замовити!</p>
-                    <a href="#" class="btn">ЗАМОВИТИ ЗА 95 ГРН</a>
-                </div>
-            </div>
+        <div class="card">
+            <div style="width: 100%; height: 180px; background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600') center/cover; border-radius: 15px;"></div>
+            <h2>First Point</h2>
+            <button style="width:100%; padding:15px; background:#18a957; color:white; border:none; border-radius:10px; margin-top:10px;">ЗАМОВИТИ ЗА 95 ГРН</button>
         </div>
-        <div id="screen-biz" class="screen"><div class="card" style="padding:20px;"><h2>Бізнес</h2><p>Розділ для партнерів.</p></div></div>
-        <div id="screen-fav" class="screen"><div class="card" style="padding:20px;"><h2>Улюблені</h2><p>Ваші обрані страви.</p></div></div>
-        <div id="screen-user" class="screen"><div class="card" style="padding:20px;"><h2>Кабінет</h2><p>Налаштування профілю.</p></div></div>
+        
+        <div class="card">
+            <h3>Де нас знайти</h3>
+            <div class="map-placeholder">Карта (Google Maps)</div>
+        </div>
     </div>
 
     <div class="nav">
-        <div class="nav-item active" onclick="show('home', this)">🏠<br>Головна</div>
-        <div class="nav-item" onclick="show('biz', this)">🏬<br>Бізнес</div>
-        <div class="nav-item" onclick="show('fav', this)">❤️<br>Улюблені</div>
-        <div class="nav-item" onclick="show('user', this)">👤<br>Кабінет</div>
+        <div class="nav-item active">🏠<br>Головна</div>
+        <div class="nav-item">🏬<br>Бізнес</div>
+        <div class="nav-item">❤️<br>Улюблені</div>
+        <div class="nav-item">👤<br>Кабінет</div>
     </div>
-
-    <script>
-        function show(id, el) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById('screen-' + id).classList.add('active');
-            el.classList.add('active');
-        }
-    </script>
 </body>
 </html>
